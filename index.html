@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -19,111 +20,132 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  #app {
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    transition: background 0.8s ease;
-  }
+#app {
+min-height: 100vh;
+min-height: 100dvh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 20px;
+transition: background 0.8s ease;
+}
 
-  .bg-idle { background: linear-gradient(165deg, #0a0a0a 0%, #0a0a1a 40%, #0f0f2d 100%); }
-  .bg-run  { background: linear-gradient(165deg, #0a0a0a 0%, #1a0a0a 40%, #2d0f0f 100%); }
-  .bg-rest { background: linear-gradient(165deg, #0a0a0a 0%, #0a1a0a 40%, #0f2d1a 100%); }
+.bg-idle { background: linear-gradient(165deg, #0a0a0a 0%, #0a0a1a 40%, #0f0f2d 100%); }
+.bg-run  { background: linear-gradient(165deg, #0a0a0a 0%, #1a0a0a 40%, #2d0f0f 100%); }
+.bg-rest { background: linear-gradient(165deg, #0a0a0a 0%, #0a1a0a 40%, #0f2d1a 100%); }
 
-  .header {
-    font-size: 13px; font-weight: 600;
-    letter-spacing: 6px; text-transform: uppercase;
-    color: #555; margin: 10px 0 8px;
-  }
+.header {
+font-size: 13px; font-weight: 600;
+letter-spacing: 6px; text-transform: uppercase;
+color: #555; margin: 10px 0 8px;
+}
 
-  /* Setup screen */
-  .setup { display: flex; flex-direction: column; align-items: center; gap: 28px; margin-top: 40px; width: 100%; max-width: 340px; }
+.setup { display: flex; flex-direction: column; align-items: center; gap: 28px; margin-top: 40px; width: 100%; max-width: 340px; }
 
-  .input-block { width: 100%; text-align: center; }
-  .input-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; margin-bottom: 10px; }
-  .input-label.run { color: #ff4444; }
-  .input-label.rest { color: #44cc66; }
+.input-block { width: 100%; text-align: center; }
+.input-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; margin-bottom: 10px; }
+.input-label.run { color: #ff4444; }
+.input-label.rest { color: #44cc66; }
 
-  .time-input {
-    width: 180px; height: 60px; border-radius: 12px;
-    background: rgba(255,255,255,0.04); color: #fff;
-    font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 700;
-    text-align: center; border: 1px solid rgba(255,255,255,0.08);
-  }
-  .time-input:focus { outline: none; }
-  .time-input.run { border-color: rgba(255,68,68,0.2); caret-color: #ff4444; }
-  .time-input.rest { border-color: rgba(68,204,102,0.2); caret-color: #44cc66; }
+.time-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-  .input-hint { font-family: 'Space Mono', monospace; font-size: 10px; color: #444; margin-top: 4px; letter-spacing: 1px; }
+.time-display {
+min-width: 140px; height: 60px; border-radius: 12px;
+background: rgba(255,255,255,0.04); color: #fff;
+font-family: ‘Space Mono’, monospace; font-size: 32px; font-weight: 700;
+text-align: center; line-height: 60px;
+}
+.time-display.run { border: 1px solid rgba(255,68,68,0.2); }
+.time-display.rest { border: 1px solid rgba(68,204,102,0.2); }
 
-  .rounds-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: #888; margin-bottom: 10px; }
-  .rounds-row { display: flex; align-items: center; justify-content: center; gap: 20px; }
-  .rounds-value { font-family: 'Space Mono', monospace; font-size: 42px; font-weight: 700; color: #fff; min-width: 60px; text-align: center; }
-  .round-btn {
-    width: 44px; height: 44px; border-radius: 22px;
-    border: 1px solid #333; background: rgba(255,255,255,0.05);
-    color: #aaa; font-size: 22px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Outfit', sans-serif;
-  }
+.adj-btn {
+width: 44px; height: 44px; border-radius: 22px;
+border: 1px solid #333; background: rgba(255,255,255,0.05);
+color: #aaa; font-size: 22px; cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+font-family: ‘Outfit’, sans-serif;
+-webkit-appearance: none; flex-shrink: 0;
+}
+.adj-btn:active { background: rgba(255,255,255,0.12); transform: scale(0.93); }
+.adj-btn.run { border-color: rgba(255,68,68,0.25); color: #ff6666; }
+.adj-btn.rest { border-color: rgba(68,204,102,0.25); color: #66dd88; }
 
-  .start-btn {
-    margin-top: 16px; width: 220px; height: 56px; border-radius: 28px; border: none;
-    background: linear-gradient(135deg, #ff4444 0%, #cc2222 100%);
-    color: #fff; font-family: 'Outfit', sans-serif; font-size: 16px;
-    font-weight: 800; letter-spacing: 5px; text-transform: uppercase;
-    cursor: pointer; box-shadow: 0 4px 30px rgba(255,68,68,0.3);
-    transition: transform 0.15s; -webkit-appearance: none;
-  }
-  .start-btn:active { transform: scale(0.96); }
+.step-row { display: flex; gap: 8px; margin-top: 8px; justify-content: center; }
+.step-btn {
+padding: 4px 12px; border-radius: 12px;
+border: 1px solid #333; background: rgba(255,255,255,0.03);
+color: #666; font-size: 11px; font-family: ‘Space Mono’, monospace;
+cursor: pointer; letter-spacing: 1px; -webkit-appearance: none;
+}
+.step-btn.active { border-color: #888; color: #ccc; background: rgba(255,255,255,0.08); }
+.step-btn:active { transform: scale(0.95); }
 
-  /* Active screen */
-  .active { display: flex; flex-direction: column; align-items: center; margin-top: 12px; width: 100%; max-width: 400px; }
+.rounds-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: #888; margin-bottom: 10px; }
+.rounds-row { display: flex; align-items: center; justify-content: center; gap: 20px; }
+.rounds-value { font-family: ‘Space Mono’, monospace; font-size: 42px; font-weight: 700; color: #fff; min-width: 60px; text-align: center; }
+.round-btn {
+width: 44px; height: 44px; border-radius: 22px;
+border: 1px solid #333; background: rgba(255,255,255,0.05);
+color: #aaa; font-size: 22px; cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+font-family: ‘Outfit’, sans-serif;
+}
+.round-btn:active { background: rgba(255,255,255,0.12); transform: scale(0.93); }
 
-  .phase-label {
-    font-size: 18px; font-weight: 800; letter-spacing: 8px;
-    text-transform: uppercase; margin-bottom: 8px; transition: color 0.4s;
-  }
-  .phase-label.run { color: #ff4444; }
-  .phase-label.rest { color: #44cc66; }
+.start-btn {
+margin-top: 16px; width: 220px; height: 56px; border-radius: 28px; border: none;
+background: linear-gradient(135deg, #ff4444 0%, #cc2222 100%);
+color: #fff; font-family: ‘Outfit’, sans-serif; font-size: 16px;
+font-weight: 800; letter-spacing: 5px; text-transform: uppercase;
+cursor: pointer; box-shadow: 0 4px 30px rgba(255,68,68,0.3);
+transition: transform 0.15s; -webkit-appearance: none;
+}
+.start-btn:active { transform: scale(0.96); }
 
-  .round-info { font-family: 'Space Mono', monospace; font-size: 13px; color: #666; letter-spacing: 2px; margin-bottom: 20px; }
+.active { display: flex; flex-direction: column; align-items: center; margin-top: 12px; width: 100%; max-width: 400px; }
 
-  .ring-container { position: relative; width: 280px; height: 280px; margin-bottom: 24px; }
-  .ring-svg { transform: rotate(-90deg); }
-  .ring-bg { fill: none; stroke: #1a1a1a; stroke-width: 6; }
-  .ring-progress { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.3s linear, stroke 0.4s; }
-  .ring-progress.run { stroke: #ff4444; }
-  .ring-progress.rest { stroke: #44cc66; }
+.phase-label {
+font-size: 18px; font-weight: 800; letter-spacing: 8px;
+text-transform: uppercase; margin-bottom: 8px; transition: color 0.4s;
+}
+.phase-label.run { color: #ff4444; }
+.phase-label.rest { color: #44cc66; }
 
-  .center-time {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;
-  }
-  .remaining-value { font-family: 'Space Mono', monospace; font-size: 52px; font-weight: 700; color: #fff; line-height: 1; }
-  .remaining-label { font-size: 11px; color: #555; letter-spacing: 3px; margin-top: 8px; }
+.round-info { font-family: ‘Space Mono’, monospace; font-size: 13px; color: #666; letter-spacing: 2px; margin-bottom: 20px; }
 
-  .stats { display: flex; gap: 32px; margin-bottom: 32px; }
-  .stat-value { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; color: #ccc; }
-  .stat-label { font-size: 10px; letter-spacing: 3px; color: #555; margin-top: 4px; }
+.ring-container { position: relative; width: 280px; height: 280px; margin-bottom: 24px; }
+.ring-svg { transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: #1a1a1a; stroke-width: 6; }
+.ring-progress { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.3s linear, stroke 0.4s; }
+.ring-progress.run { stroke: #ff4444; }
+.ring-progress.rest { stroke: #44cc66; }
 
-  .controls { display: flex; gap: 16px; }
-  .ctrl-btn {
-    width: 120px; height: 48px; border-radius: 24px; border: none;
-    font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;
-    letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
-    transition: transform 0.1s; -webkit-appearance: none;
-  }
-  .ctrl-btn:active { transform: scale(0.95); }
-  .ctrl-pause { background: rgba(255,255,255,0.08); color: #fff; }
-  .ctrl-resume-run { background: #ff4444; color: #fff; }
-  .ctrl-resume-rest { background: #44cc66; color: #fff; }
-  .ctrl-stop { background: rgba(255,255,255,0.05); color: #777; }
+.center-time {
+position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;
+}
+.remaining-value { font-family: ‘Space Mono’, monospace; font-size: 52px; font-weight: 700; color: #fff; line-height: 1; }
+.remaining-label { font-size: 11px; color: #555; letter-spacing: 3px; margin-top: 8px; }
 
-  .hidden { display: none !important; }
+.stats { display: flex; gap: 32px; margin-bottom: 32px; }
+.stat-value { font-family: ‘Space Mono’, monospace; font-size: 24px; font-weight: 700; color: #ccc; }
+.stat-label { font-size: 10px; letter-spacing: 3px; color: #555; margin-top: 4px; }
+
+.controls { display: flex; gap: 16px; }
+.ctrl-btn {
+width: 120px; height: 48px; border-radius: 24px; border: none;
+font-family: ‘Outfit’, sans-serif; font-size: 14px; font-weight: 600;
+letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
+transition: transform 0.1s; -webkit-appearance: none;
+}
+.ctrl-btn:active { transform: scale(0.95); }
+.ctrl-pause { background: rgba(255,255,255,0.08); color: #fff; }
+.ctrl-resume-run { background: #ff4444; color: #fff; }
+.ctrl-resume-rest { background: #44cc66; color: #fff; }
+.ctrl-stop { background: rgba(255,255,255,0.05); color: #777; }
+
+.hidden { display: none !important; }
 </style>
+
 </head>
 <body>
 
@@ -131,60 +153,87 @@
   <div class="header">Interval Timer</div>
 
   <!-- SETUP -->
+
   <div id="setup" class="setup">
     <div class="input-block">
       <div class="input-label run">RUN</div>
-      <input id="runInput" class="time-input run" type="text" value="2:50" inputmode="numeric">
-      <div class="input-hint">min:sec</div>
-    </div>
-    <div class="input-block">
-      <div class="input-label rest">REST</div>
-      <input id="restInput" class="time-input rest" type="text" value="4:00" inputmode="numeric">
-      <div class="input-hint">min:sec</div>
-    </div>
-    <div class="input-block">
-      <div class="rounds-label">ROUNDS</div>
-      <div class="rounds-row">
-        <button id="roundMinus" class="round-btn">−</button>
-        <span id="roundsValue" class="rounds-value">6</span>
-        <button id="roundPlus" class="round-btn">+</button>
+      <div class="time-row">
+        <button class="adj-btn run" onclick="adjustTime('run', -1)">−</button>
+        <div id="runDisplay" class="time-display run">2:50</div>
+        <button class="adj-btn run" onclick="adjustTime('run', 1)">+</button>
       </div>
     </div>
-    <button id="startBtn" class="start-btn">Start</button>
+
+```
+<div class="input-block">
+  <div class="input-label rest">REST</div>
+  <div class="time-row">
+    <button class="adj-btn rest" onclick="adjustTime('rest', -1)">−</button>
+    <div id="restDisplay" class="time-display rest">4:00</div>
+    <button class="adj-btn rest" onclick="adjustTime('rest', 1)">+</button>
+  </div>
+</div>
+
+<div class="input-block">
+  <div class="step-row">
+    <button class="step-btn" data-step="5" onclick="setStep(5)">5s</button>
+    <button class="step-btn active" data-step="10" onclick="setStep(10)">10s</button>
+    <button class="step-btn" data-step="15" onclick="setStep(15)">15s</button>
+    <button class="step-btn" data-step="30" onclick="setStep(30)">30s</button>
+    <button class="step-btn" data-step="60" onclick="setStep(60)">1m</button>
+  </div>
+</div>
+
+<div class="input-block">
+  <div class="rounds-label">ROUNDS</div>
+  <div class="rounds-row">
+    <button id="roundMinus" class="round-btn">−</button>
+    <span id="roundsValue" class="rounds-value">6</span>
+    <button id="roundPlus" class="round-btn">+</button>
+  </div>
+</div>
+
+<button id="startBtn" class="start-btn">Start</button>
+```
+
   </div>
 
   <!-- ACTIVE -->
+
   <div id="active" class="active hidden">
     <div id="phaseLabel" class="phase-label run">RUN</div>
     <div id="roundInfo" class="round-info">ROUND 1 / 6</div>
 
-    <div class="ring-container">
-      <svg class="ring-svg" width="280" height="280" viewBox="0 0 280 280">
-        <circle class="ring-bg" cx="140" cy="140" r="130"/>
-        <circle id="ringProgress" class="ring-progress run" cx="140" cy="140" r="130"
-          stroke-dasharray="816.81" stroke-dashoffset="816.81"/>
-      </svg>
-      <div class="center-time">
-        <div id="remainingValue" class="remaining-value">2:50</div>
-        <div class="remaining-label">REMAINING</div>
-      </div>
-    </div>
+```
+<div class="ring-container">
+  <svg class="ring-svg" width="280" height="280" viewBox="0 0 280 280">
+    <circle class="ring-bg" cx="140" cy="140" r="130"/>
+    <circle id="ringProgress" class="ring-progress run" cx="140" cy="140" r="130"
+      stroke-dasharray="816.81" stroke-dashoffset="816.81"/>
+  </svg>
+  <div class="center-time">
+    <div id="remainingValue" class="remaining-value">2:50</div>
+    <div class="remaining-label">REMAINING</div>
+  </div>
+</div>
 
-    <div class="stats">
-      <div style="text-align:center">
-        <div id="periodElapsed" class="stat-value">0:00</div>
-        <div class="stat-label">PERIOD</div>
-      </div>
-      <div style="text-align:center">
-        <div id="totalElapsed" class="stat-value">0:00</div>
-        <div class="stat-label">TOTAL</div>
-      </div>
-    </div>
+<div class="stats">
+  <div style="text-align:center">
+    <div id="periodElapsed" class="stat-value">0:00</div>
+    <div class="stat-label">PERIOD</div>
+  </div>
+  <div style="text-align:center">
+    <div id="totalElapsed" class="stat-value">0:00</div>
+    <div class="stat-label">TOTAL</div>
+  </div>
+</div>
 
-    <div class="controls">
-      <button id="pauseBtn" class="ctrl-btn ctrl-pause">Pause</button>
-      <button id="stopBtn" class="ctrl-btn ctrl-stop">Stop</button>
-    </div>
+<div class="controls">
+  <button id="pauseBtn" class="ctrl-btn ctrl-pause">Pause</button>
+  <button id="stopBtn" class="ctrl-btn ctrl-stop">Stop</button>
+</div>
+```
+
   </div>
 </div>
 
@@ -193,19 +242,17 @@ const $ = (s) => document.getElementById(s);
 const app = $("app");
 const circumference = 2 * Math.PI * 130;
 
-let runDuration = 0, restDuration = 0, totalRounds = 6;
+let runSecs = 170;
+let restSecs = 240;
+let stepSize = 10;
+let totalRounds = 6;
+
+let runDuration = 0, restDuration = 0;
 let phase = "run", currentRound = 1;
 let periodSecs = 0, totalSecs = 0;
 let timerInterval = null;
-let state = "idle"; // idle | running | paused
+let state = "idle";
 let audioCtx = null;
-
-function parseTime(str) {
-  const p = str.split(":").map(Number);
-  if (p.length === 2 && !isNaN(p[0]) && !isNaN(p[1])) return p[0] * 60 + p[1];
-  if (p.length === 1 && !isNaN(p[0])) return p[0] * 60;
-  return null;
-}
 
 function fmt(s) {
   return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
@@ -221,6 +268,23 @@ function beep(freq, dur, count) {
     const t = audioCtx.currentTime + i * 0.22;
     o.start(t); o.stop(t + dur / 1000);
   }
+}
+
+function adjustTime(which, direction) {
+  if (which === "run") {
+    runSecs = Math.max(5, runSecs + direction * stepSize);
+    $("runDisplay").textContent = fmt(runSecs);
+  } else {
+    restSecs = Math.max(5, restSecs + direction * stepSize);
+    $("restDisplay").textContent = fmt(restSecs);
+  }
+}
+
+function setStep(s) {
+  stepSize = s;
+  document.querySelectorAll(".step-btn").forEach(b => {
+    b.classList.toggle("active", Number(b.dataset.step) === s);
+  });
 }
 
 function curDuration() { return phase === "run" ? runDuration : restDuration; }
@@ -244,7 +308,6 @@ function render() {
   ring.className.baseVal = "ring-progress " + phase;
   ring.style.strokeDashoffset = circumference * (1 - progress);
 
-  // Pause/resume button
   const pb = $("pauseBtn");
   if (state === "running") {
     pb.textContent = "Pause";
@@ -288,16 +351,13 @@ function stop() {
   app.className = "bg-idle";
 }
 
-// Events
 $("roundMinus").onclick = () => { totalRounds = Math.max(1, totalRounds - 1); $("roundsValue").textContent = totalRounds; };
 $("roundPlus").onclick  = () => { totalRounds++; $("roundsValue").textContent = totalRounds; };
 
 $("startBtn").onclick = () => {
-  const rd = parseTime($("runInput").value);
-  const rs = parseTime($("restInput").value);
-  if (!rd || !rs || rd <= 0 || rs <= 0) return;
+  if (runSecs <= 0 || restSecs <= 0) return;
 
-  runDuration = rd; restDuration = rs;
+  runDuration = runSecs; restDuration = restSecs;
   phase = "run"; currentRound = 1; periodSecs = 0; totalSecs = 0;
   state = "running";
 
@@ -324,5 +384,6 @@ $("pauseBtn").onclick = () => {
 
 $("stopBtn").onclick = stop;
 </script>
+
 </body>
 </html>
