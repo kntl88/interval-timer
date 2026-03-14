@@ -26,8 +26,10 @@ min-height: 100dvh;
 display: flex;
 flex-direction: column;
 align-items: center;
-padding: 20px;
+justify-content: center;
+padding: 16px;
 transition: background 0.8s ease;
+overflow: hidden;
 }
 
 .bg-idle { background: linear-gradient(165deg, #0a0a0a 0%, #0a0a1a 40%, #0f0f2d 100%); }
@@ -37,10 +39,10 @@ transition: background 0.8s ease;
 .header {
 font-size: 13px; font-weight: 600;
 letter-spacing: 6px; text-transform: uppercase;
-color: #555; margin: 10px 0 8px;
+color: #555; margin: 6px 0 4px;
 }
 
-.setup { display: flex; flex-direction: column; align-items: center; gap: 28px; margin-top: 40px; width: 100%; max-width: 340px; }
+.setup { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 340px; }
 
 .input-block { width: 100%; text-align: center; }
 .input-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; margin-bottom: 10px; }
@@ -70,15 +72,17 @@ font-family: ‘Outfit’, sans-serif;
 .adj-btn.run { border-color: rgba(255,68,68,0.25); color: #ff6666; }
 .adj-btn.rest { border-color: rgba(68,204,102,0.25); color: #66dd88; }
 
-.step-row { display: flex; gap: 8px; margin-top: 8px; justify-content: center; }
+.step-row { display: flex; gap: 10px; margin-top: 4px; justify-content: center; align-items: center; }
 .step-btn {
-padding: 4px 12px; border-radius: 12px;
+width: 56px; min-width: 56px; max-width: 56px; height: 32px; border-radius: 14px;
 border: 1px solid #333; background: rgba(255,255,255,0.03);
-color: #666; font-size: 11px; font-family: ‘Space Mono’, monospace;
+color: #666; font-size: 13px; font-family: ‘Space Mono’, monospace;
 cursor: pointer; letter-spacing: 1px; -webkit-appearance: none;
+text-align: center; line-height: 30px; padding: 0; margin: 0;
+display: inline-flex; align-items: center; justify-content: center;
+flex-shrink: 0; flex-grow: 0;
 }
-.step-btn.active { border-color: #888; color: #ccc; background: rgba(255,255,255,0.08); }
-.step-btn:active { transform: scale(0.95); }
+.step-btn.active { border-color: rgba(68,204,102,0.5); color: #44cc66; background: rgba(68,204,102,0.1); }
 
 .rounds-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: #888; margin-bottom: 10px; }
 .rounds-row { display: flex; align-items: center; justify-content: center; gap: 20px; }
@@ -93,7 +97,7 @@ font-family: ‘Outfit’, sans-serif;
 .round-btn:active { background: rgba(255,255,255,0.12); transform: scale(0.93); }
 
 .start-btn {
-margin-top: 16px; width: 220px; height: 56px; border-radius: 28px; border: none;
+margin-top: 10px; width: 220px; height: 56px; border-radius: 28px; border: none;
 background: linear-gradient(135deg, #ff4444 0%, #cc2222 100%);
 color: #fff; font-family: ‘Outfit’, sans-serif; font-size: 16px;
 font-weight: 800; letter-spacing: 5px; text-transform: uppercase;
@@ -174,14 +178,10 @@ transition: transform 0.1s; -webkit-appearance: none;
   </div>
 </div>
 
-<div class="input-block">
-  <div class="step-row">
-    <button class="step-btn" data-step="5" onclick="setStep(5)">5s</button>
-    <button class="step-btn active" data-step="10" onclick="setStep(10)">10s</button>
-    <button class="step-btn" data-step="15" onclick="setStep(15)">15s</button>
-    <button class="step-btn" data-step="30" onclick="setStep(30)">30s</button>
-    <button class="step-btn" data-step="60" onclick="setStep(60)">1m</button>
-  </div>
+<div class="step-row">
+  <div class="step-btn" data-step="1" onclick="setStep(1)" style="width:56px;min-width:56px;max-width:56px">1s</div>
+  <div class="step-btn active" data-step="10" onclick="setStep(10)" style="width:56px;min-width:56px;max-width:56px">10s</div>
+  <div class="step-btn" data-step="60" onclick="setStep(60)" style="width:56px;min-width:56px;max-width:56px">1m</div>
 </div>
 
 <div class="input-block">
@@ -272,10 +272,10 @@ function beep(freq, dur, count) {
 
 function adjustTime(which, direction) {
   if (which === "run") {
-    runSecs = Math.max(5, runSecs + direction * stepSize);
+    runSecs = Math.max(0, runSecs + direction * stepSize);
     $("runDisplay").textContent = fmt(runSecs);
   } else {
-    restSecs = Math.max(5, restSecs + direction * stepSize);
+    restSecs = Math.max(0, restSecs + direction * stepSize);
     $("restDisplay").textContent = fmt(restSecs);
   }
 }
