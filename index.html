@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow: hidden; }
+  html, body { height: 100%; }
   body {
     font-family: 'Outfit', -apple-system, sans-serif;
     color: #e0e0e0;
@@ -20,134 +20,168 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-#app {
-min-height: 100vh;
-min-height: 100dvh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 16px;
-transition: background 0.8s ease;
-overflow: hidden;
-}
+  #app {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    transition: background 0.8s ease;
+  }
 
-.bg-idle { background: linear-gradient(165deg, #0a0a0a 0%, #0a0a1a 40%, #0f0f2d 100%); }
-.bg-run  { background: linear-gradient(165deg, #0a0a0a 0%, #1a0a0a 40%, #2d0f0f 100%); }
-.bg-rest { background: linear-gradient(165deg, #0a0a0a 0%, #0a1a0a 40%, #0f2d1a 100%); }
+  .bg-idle { background: linear-gradient(165deg, #0a0a0a 0%, #0a0a1a 40%, #0f0f2d 100%); }
+  .bg-run  { background: linear-gradient(165deg, #0a0a0a 0%, #1a0a0a 40%, #2d0f0f 100%); }
+  .bg-rest { background: linear-gradient(165deg, #0a0a0a 0%, #0a1a0a 40%, #0f2d1a 100%); }
+  .bg-push { background: linear-gradient(165deg, #0a0a0a 0%, #2a0a1a 40%, #4a1030 100%); }
 
-.header {
-font-size: 13px; font-weight: 600;
-letter-spacing: 6px; text-transform: uppercase;
-color: #555; margin: 6px 0 4px;
-}
+  .header {
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 6px; text-transform: uppercase;
+    color: #555; margin: 6px 0 4px;
+  }
 
-.setup { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; }
+  .setup { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 340px; }
 
-.input-block { width: 100%; text-align: center; }
-.input-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; margin-bottom: 6px; }
-.input-label.run { color: #ff4444; }
-.input-label.rest { color: #44cc66; }
+  .input-block { width: 100%; text-align: center; }
+  .input-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; margin-bottom: 6px; }
+  .input-label.run { color: #ff4444; }
+  .input-label.rest { color: #44cc66; }
 
-.time-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .time-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-.time-display {
-min-width: 140px; height: 60px; border-radius: 12px;
-background: rgba(255,255,255,0.04); color: #fff;
-font-family: ‘Space Mono’, monospace; font-size: 32px; font-weight: 700;
-text-align: center; line-height: 60px;
-}
-.time-display.run { border: 1px solid rgba(255,68,68,0.2); }
-.time-display.rest { border: 1px solid rgba(68,204,102,0.2); }
+  .time-display {
+    min-width: 140px; height: 60px; border-radius: 12px;
+    background: rgba(255,255,255,0.04); color: #fff;
+    font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 700;
+    text-align: center; line-height: 60px;
+  }
+  .time-display.run { border: 1px solid rgba(255,68,68,0.2); }
+  .time-display.rest { border: 1px solid rgba(68,204,102,0.2); }
 
-.adj-btn {
-width: 44px; height: 44px; border-radius: 22px;
-border: 1px solid #333; background: rgba(255,255,255,0.05);
-color: #aaa; font-size: 22px; cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-font-family: ‘Outfit’, sans-serif;
--webkit-appearance: none; flex-shrink: 0;
-}
-.adj-btn:active { background: rgba(255,255,255,0.12); transform: scale(0.93); }
-.adj-btn.run { border-color: rgba(255,68,68,0.25); color: #ff6666; }
-.adj-btn.rest { border-color: rgba(68,204,102,0.25); color: #66dd88; }
+  .adj-btn {
+    width: 44px; height: 44px; border-radius: 22px;
+    border: 1px solid #333; background: rgba(255,255,255,0.05);
+    color: #aaa; font-size: 22px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    -webkit-appearance: none; flex-shrink: 0;
+  }
+  .adj-btn:active { background: rgba(255,255,255,0.12); transform: scale(0.93); }
+  .adj-btn.run { border-color: rgba(255,68,68,0.25); color: #ff6666; }
+  .adj-btn.rest { border-color: rgba(68,204,102,0.25); color: #66dd88; }
 
-.step-row { display: flex; gap: 10px; margin-top: 4px; justify-content: center; align-items: center; }
-.step-btn {
-width: 56px; min-width: 56px; max-width: 56px; height: 32px; border-radius: 14px;
-border: 1px solid #333; background: rgba(255,255,255,0.03);
-color: #666; font-size: 13px; font-family: ‘Space Mono’, monospace;
-cursor: pointer; letter-spacing: 1px; -webkit-appearance: none;
-text-align: center; line-height: 30px; padding: 0; margin: 0;
-display: inline-flex; align-items: center; justify-content: center;
-flex-shrink: 0; flex-grow: 0;
-}
-.step-btn.active { border-color: rgba(68,204,102,0.5); color: #44cc66; background: rgba(68,204,102,0.1); }
+  .step-row { display: flex; gap: 10px; margin-top: 4px; justify-content: center; align-items: center; }
+  .step-btn {
+    width: 56px; min-width: 56px; max-width: 56px; height: 32px; border-radius: 14px;
+    border: 1px solid #333; background: rgba(255,255,255,0.03);
+    color: #666; font-size: 13px; font-family: 'Space Mono', monospace;
+    cursor: pointer; letter-spacing: 1px; -webkit-appearance: none;
+    text-align: center; line-height: 30px; padding: 0; margin: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0; flex-grow: 0;
+  }
+  .step-btn.active { border-color: rgba(68,204,102,0.5); color: #44cc66; background: rgba(68,204,102,0.1); }
 
-.rounds-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: #888; margin-bottom: 6px; }
-.rounds-row { display: flex; align-items: center; justify-content: center; gap: 20px; }
-.rounds-value { font-family: ‘Space Mono’, monospace; font-size: 42px; font-weight: 700; color: #fff; min-width: 60px; text-align: center; }
-.round-btn {
-width: 44px; height: 44px; border-radius: 22px;
-border: 1px solid #333; background: rgba(255,255,255,0.05);
-color: #aaa; font-size: 22px; cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-font-family: ‘Outfit’, sans-serif;
-}
-.round-btn:active { background: rgba(255,255,255,0.12); transform: scale(0.93); }
+  .rounds-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: #888; margin-bottom: 6px; }
+  .rounds-row { display: flex; align-items: center; justify-content: center; gap: 20px; }
+  .rounds-value { font-family: 'Space Mono', monospace; font-size: 42px; font-weight: 700; color: #fff; min-width: 60px; text-align: center; }
+  .round-btn {
+    width: 44px; height: 44px; border-radius: 22px;
+    border: 1px solid #333; background: rgba(255,255,255,0.05);
+    color: #aaa; font-size: 22px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Outfit', sans-serif;
+  }
+  .round-btn:active { background: rgba(255,255,255,0.12); transform: scale(0.93); }
 
-.start-btn {
-margin-top: 4px; width: 220px; height: 56px; border-radius: 28px; border: none;
-background: linear-gradient(135deg, #ff4444 0%, #cc2222 100%);
-color: #fff; font-family: ‘Outfit’, sans-serif; font-size: 16px;
-font-weight: 800; letter-spacing: 5px; text-transform: uppercase;
-cursor: pointer; box-shadow: 0 4px 30px rgba(255,68,68,0.3);
-transition: transform 0.15s; -webkit-appearance: none;
-}
-.start-btn:active { transform: scale(0.96); }
+  .start-btn {
+    margin-top: 4px; width: 220px; height: 56px; border-radius: 28px; border: none;
+    background: linear-gradient(135deg, #ff4444 0%, #cc2222 100%);
+    color: #fff; font-family: 'Outfit', sans-serif; font-size: 16px;
+    font-weight: 800; letter-spacing: 5px; text-transform: uppercase;
+    cursor: pointer; box-shadow: 0 4px 30px rgba(255,68,68,0.3);
+    transition: transform 0.15s; -webkit-appearance: none;
+  }
+  .start-btn:active { transform: scale(0.96); }
 
-.active { display: flex; flex-direction: column; align-items: center; margin-top: 12px; width: 100%; max-width: 400px; }
+  .active { display: flex; flex-direction: column; align-items: center; margin-top: 8px; width: 100%; max-width: 400px; }
 
-.phase-label {
-font-size: 18px; font-weight: 800; letter-spacing: 8px;
-text-transform: uppercase; margin-bottom: 8px; transition: color 0.4s;
-}
-.phase-label.run { color: #ff4444; }
-.phase-label.rest { color: #44cc66; }
+  .phase-label {
+    font-size: 18px; font-weight: 800; letter-spacing: 8px;
+    text-transform: uppercase; margin-bottom: 6px; transition: color 0.4s;
+  }
+  .phase-label.run { color: #ff4444; }
+  .phase-label.rest { color: #44cc66; }
+  .phase-label.push { color: #ff66cc; }
 
-.round-info { font-family: ‘Space Mono’, monospace; font-size: 13px; color: #666; letter-spacing: 2px; margin-bottom: 20px; }
+  .round-info { font-family: 'Space Mono', monospace; font-size: 13px; color: #666; letter-spacing: 2px; margin-bottom: 12px; }
 
-.ring-container { position: relative; width: 280px; height: 280px; margin-bottom: 24px; }
-.ring-svg { transform: rotate(-90deg); }
-.ring-bg { fill: none; stroke: #1a1a1a; stroke-width: 6; }
-.ring-progress { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.3s linear, stroke 0.4s; }
-.ring-progress.run { stroke: #ff4444; }
-.ring-progress.rest { stroke: #44cc66; }
+  .ring-container { position: relative; width: 240px; height: 240px; margin-bottom: 14px; }
+  .ring-svg { transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: #1a1a1a; stroke-width: 6; }
+  .ring-progress { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.3s linear, stroke 0.4s; }
+  .ring-progress.run { stroke: #ff4444; }
+  .ring-progress.rest { stroke: #44cc66; }
+  .ring-progress.push { stroke: #ff66cc; }
 
-.center-time {
-position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;
-}
-.remaining-value { font-family: ‘Space Mono’, monospace; font-size: 52px; font-weight: 700; color: #fff; line-height: 1; }
-.remaining-label { font-size: 11px; color: #555; letter-spacing: 3px; margin-top: 8px; }
+  .center-time {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;
+  }
+  .remaining-value { font-family: 'Space Mono', monospace; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; }
+  .remaining-label { font-size: 11px; color: #555; letter-spacing: 3px; margin-top: 6px; }
 
-.stats { display: flex; gap: 32px; margin-bottom: 32px; }
-.stat-value { font-family: ‘Space Mono’, monospace; font-size: 24px; font-weight: 700; color: #ccc; }
-.stat-label { font-size: 10px; letter-spacing: 3px; color: #555; margin-top: 4px; }
+  .stats { display: flex; gap: 28px; margin-bottom: 14px; }
+  .stat-value { font-family: 'Space Mono', monospace; font-size: 22px; font-weight: 700; color: #ccc; }
+  .stat-label { font-size: 10px; letter-spacing: 3px; color: #555; margin-top: 2px; }
 
-.controls { display: flex; gap: 16px; }
-.ctrl-btn {
-width: 120px; height: 48px; border-radius: 24px; border: none;
-font-family: ‘Outfit’, sans-serif; font-size: 14px; font-weight: 600;
-letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
-transition: transform 0.1s; -webkit-appearance: none;
-}
-.ctrl-btn:active { transform: scale(0.95); }
-.ctrl-pause { background: rgba(255,255,255,0.08); color: #fff; }
-.ctrl-resume-run { background: #ff4444; color: #fff; }
-.ctrl-resume-rest { background: #44cc66; color: #fff; }
-.ctrl-stop { background: rgba(255,255,255,0.05); color: #777; }
+  .live-adjust { display: flex; gap: 14px; margin-bottom: 12px; }
+  .live-adj-group { display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 18px; background: rgba(255,255,255,0.03); border: 1px solid #222; }
+  .live-adj-group.run { border-color: rgba(255,68,68,0.25); }
+  .live-adj-group.rest { border-color: rgba(68,204,102,0.25); }
+  .live-adj-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; padding: 0 4px; }
+  .live-adj-group.run .live-adj-label { color: #ff6666; }
+  .live-adj-group.rest .live-adj-label { color: #66dd88; }
+  .live-adj-btn {
+    width: 26px; height: 26px; border-radius: 13px; border: 1px solid #333;
+    background: rgba(255,255,255,0.04); color: #aaa; font-size: 16px; line-height: 1;
+    cursor: pointer; -webkit-appearance: none; display: flex; align-items: center; justify-content: center;
+    font-family: 'Outfit', sans-serif;
+  }
+  .live-adj-btn:active { transform: scale(0.92); background: rgba(255,255,255,0.12); }
+  .live-adj-val { font-family: 'Space Mono', monospace; font-size: 14px; color: #fff; min-width: 44px; text-align: center; }
 
-.hidden { display: none !important; }
+  .controls-row { display: flex; gap: 10px; margin-bottom: 10px; justify-content: center; flex-wrap: wrap; }
+  .ctrl-btn {
+    min-width: 104px; height: 44px; padding: 0 14px; border-radius: 22px; border: none;
+    font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s; -webkit-appearance: none;
+  }
+  .ctrl-btn:active { transform: scale(0.95); }
+  .ctrl-btn:disabled { opacity: 0.3; cursor: default; }
+  .ctrl-pause { background: rgba(255,255,255,0.08); color: #fff; }
+  .ctrl-resume-run { background: #ff4444; color: #fff; }
+  .ctrl-resume-rest { background: #44cc66; color: #fff; }
+  .ctrl-stop { background: rgba(255,255,255,0.05); color: #777; }
+  .ctrl-end { background: rgba(255,200,50,0.12); color: #ffcc44; border: 1px solid rgba(255,200,50,0.35); }
+  .ctrl-push { background: rgba(255,100,200,0.1); color: #ff77cc; border: 1px solid rgba(255,100,200,0.3); }
+  .ctrl-push.push-active { background: #ff66cc; color: #fff; border: 1px solid #ff66cc; }
+
+  .session-log { width: 100%; max-width: 340px; margin-top: 4px; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,0.03); border: 1px solid #222; }
+  .log-title { font-size: 10px; font-weight: 700; letter-spacing: 4px; color: #888; margin-bottom: 8px; text-align: center; }
+  .log-head { display: grid; grid-template-columns: 40px 1fr 1fr; font-size: 9px; letter-spacing: 2px; color: #555; padding: 0 4px 4px; border-bottom: 1px solid #222; }
+  .log-row { display: grid; grid-template-columns: 40px 1fr 1fr; font-family: 'Space Mono', monospace; font-size: 13px; padding: 4px; color: #ddd; }
+  .log-row:nth-child(odd) { background: rgba(255,255,255,0.02); }
+  .log-round { color: #666; }
+  .log-run { color: #ff7777; }
+  .log-rest { color: #77dd99; }
+  .log-over { color: #ff66cc; font-size: 10px; }
+  .log-under { color: #888; font-size: 10px; }
+  .log-scroll { max-height: 180px; overflow-y: auto; }
+
+  .hidden { display: none !important; }
 </style>
 
 </head>
@@ -157,7 +191,6 @@ transition: transform 0.1s; -webkit-appearance: none;
   <div class="header">Interval Timer</div>
 
   <!-- SETUP -->
-
   <div id="setup" class="setup">
     <div class="input-block">
       <div class="input-label run">RUN</div>
@@ -168,72 +201,86 @@ transition: transform 0.1s; -webkit-appearance: none;
       </div>
     </div>
 
-```
-<div class="input-block">
-  <div class="input-label rest">REST</div>
-  <div class="time-row">
-    <button class="adj-btn rest" onclick="adjustTime('rest', -1)">-</button>
-    <div id="restDisplay" class="time-display rest">4:00</div>
-    <button class="adj-btn rest" onclick="adjustTime('rest', 1)">+</button>
-  </div>
-</div>
+    <div class="input-block">
+      <div class="input-label rest">REST</div>
+      <div class="time-row">
+        <button class="adj-btn rest" onclick="adjustTime('rest', -1)">-</button>
+        <div id="restDisplay" class="time-display rest">4:00</div>
+        <button class="adj-btn rest" onclick="adjustTime('rest', 1)">+</button>
+      </div>
+    </div>
 
-<div class="step-row">
-  <div class="step-btn" data-step="1" onclick="setStep(1)" style="width:56px;min-width:56px;max-width:56px">1s</div>
-  <div class="step-btn active" data-step="10" onclick="setStep(10)" style="width:56px;min-width:56px;max-width:56px">10s</div>
-  <div class="step-btn" data-step="60" onclick="setStep(60)" style="width:56px;min-width:56px;max-width:56px">1m</div>
-</div>
+    <div class="step-row">
+      <div class="step-btn" data-step="1" onclick="setStep(1)">1s</div>
+      <div class="step-btn active" data-step="10" onclick="setStep(10)">10s</div>
+      <div class="step-btn" data-step="60" onclick="setStep(60)">1m</div>
+    </div>
 
-<div class="input-block">
-  <div class="rounds-label">ROUNDS</div>
-  <div class="rounds-row">
-    <button id="roundMinus" class="round-btn">-</button>
-    <span id="roundsValue" class="rounds-value">6</span>
-    <button id="roundPlus" class="round-btn">+</button>
-  </div>
-</div>
+    <div class="input-block">
+      <div class="rounds-label">ROUNDS</div>
+      <div class="rounds-row">
+        <button id="roundMinus" class="round-btn">-</button>
+        <span id="roundsValue" class="rounds-value">6</span>
+        <button id="roundPlus" class="round-btn">+</button>
+      </div>
+    </div>
 
-<button id="startBtn" class="start-btn">Start</button>
-```
+    <button id="startBtn" class="start-btn">Start</button>
 
+    <div id="sessionLog" class="session-log hidden"></div>
   </div>
 
   <!-- ACTIVE -->
-
   <div id="active" class="active hidden">
     <div id="phaseLabel" class="phase-label run">RUN</div>
     <div id="roundInfo" class="round-info">ROUND 1 / 6</div>
 
-```
-<div class="ring-container">
-  <svg class="ring-svg" width="280" height="280" viewBox="0 0 280 280">
-    <circle class="ring-bg" cx="140" cy="140" r="130"/>
-    <circle id="ringProgress" class="ring-progress run" cx="140" cy="140" r="130"
-      stroke-dasharray="816.81" stroke-dashoffset="816.81"/>
-  </svg>
-  <div class="center-time">
-    <div id="remainingValue" class="remaining-value">2:50</div>
-    <div class="remaining-label">REMAINING</div>
-  </div>
-</div>
+    <div class="ring-container">
+      <svg class="ring-svg" width="240" height="240" viewBox="0 0 280 280">
+        <circle class="ring-bg" cx="140" cy="140" r="130"/>
+        <circle id="ringProgress" class="ring-progress run" cx="140" cy="140" r="130"
+          stroke-dasharray="816.81" stroke-dashoffset="816.81"/>
+      </svg>
+      <div class="center-time">
+        <div id="remainingValue" class="remaining-value">2:50</div>
+        <div class="remaining-label">REMAINING</div>
+      </div>
+    </div>
 
-<div class="stats">
-  <div style="text-align:center">
-    <div id="periodElapsed" class="stat-value">0:00</div>
-    <div class="stat-label">PERIOD</div>
-  </div>
-  <div style="text-align:center">
-    <div id="totalElapsed" class="stat-value">0:00</div>
-    <div class="stat-label">TOTAL</div>
-  </div>
-</div>
+    <div class="stats">
+      <div style="text-align:center">
+        <div id="periodElapsed" class="stat-value">0:00</div>
+        <div class="stat-label">PERIOD</div>
+      </div>
+      <div style="text-align:center">
+        <div id="totalElapsed" class="stat-value">0:00</div>
+        <div class="stat-label">TOTAL</div>
+      </div>
+    </div>
 
-<div class="controls">
-  <button id="pauseBtn" class="ctrl-btn ctrl-pause">Pause</button>
-  <button id="stopBtn" class="ctrl-btn ctrl-stop">Stop</button>
-</div>
-```
+    <div class="live-adjust">
+      <div class="live-adj-group run">
+        <span class="live-adj-label">RUN</span>
+        <button class="live-adj-btn" onclick="adjustLive('run', -1)">-</button>
+        <span id="liveRunVal" class="live-adj-val">2:50</span>
+        <button class="live-adj-btn" onclick="adjustLive('run', 1)">+</button>
+      </div>
+      <div class="live-adj-group rest">
+        <span class="live-adj-label">REST</span>
+        <button class="live-adj-btn" onclick="adjustLive('rest', -1)">-</button>
+        <span id="liveRestVal" class="live-adj-val">4:00</span>
+        <button class="live-adj-btn" onclick="adjustLive('rest', 1)">+</button>
+      </div>
+    </div>
 
+    <div class="controls-row">
+      <button id="endBtn" class="ctrl-btn ctrl-end">End</button>
+      <button id="pushBtn" class="ctrl-btn ctrl-push">Push</button>
+    </div>
+    <div class="controls-row">
+      <button id="pauseBtn" class="ctrl-btn ctrl-pause">Pause</button>
+      <button id="stopBtn" class="ctrl-btn ctrl-stop">Stop</button>
+    </div>
   </div>
 </div>
 
@@ -253,8 +300,12 @@ let periodSecs = 0, totalSecs = 0;
 let timerInterval = null;
 let state = "idle";
 let audioCtx = null;
+let pushing = false;
+let intervalLog = [];
+let lastSessionLog = [];
 
 function fmt(s) {
+  s = Math.max(0, Math.round(s));
   return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
 }
 
@@ -280,6 +331,19 @@ function adjustTime(which, direction) {
   }
 }
 
+function adjustLive(which, direction) {
+  if (which === "run") {
+    runSecs = Math.max(0, runSecs + direction * stepSize);
+    runDuration = runSecs;
+    $("runDisplay").textContent = fmt(runSecs);
+  } else {
+    restSecs = Math.max(0, restSecs + direction * stepSize);
+    restDuration = restSecs;
+    $("restDisplay").textContent = fmt(restSecs);
+  }
+  render();
+}
+
 function setStep(s) {
   stepSize = s;
   document.querySelectorAll(".step-btn").forEach(b => {
@@ -293,29 +357,79 @@ function render() {
   const isRun = phase === "run";
   const dur = curDuration();
   const remaining = Math.max(0, dur - periodSecs);
-  const progress = dur > 0 ? periodSecs / dur : 0;
+  const progress = dur > 0 ? Math.min(1, periodSecs / dur) : 0;
 
-  app.className = state === "idle" ? "bg-idle" : isRun ? "bg-run" : "bg-rest";
+  const bgClass = state === "idle" ? "bg-idle"
+    : (pushing && isRun) ? "bg-push"
+    : isRun ? "bg-run" : "bg-rest";
+  app.className = bgClass;
 
-  $("phaseLabel").textContent = phase.toUpperCase();
-  $("phaseLabel").className = "phase-label " + phase;
+  const labelText = (pushing && isRun) ? "PUSH" : phase.toUpperCase();
+  const labelPhase = (pushing && isRun) ? "push" : phase;
+  $("phaseLabel").textContent = labelText;
+  $("phaseLabel").className = "phase-label " + labelPhase;
   $("roundInfo").textContent = "ROUND " + currentRound + " / " + totalRounds;
-  $("remainingValue").textContent = fmt(remaining);
+
+  if (pushing && isRun && periodSecs >= dur) {
+    $("remainingValue").textContent = "+" + fmt(periodSecs - dur);
+  } else {
+    $("remainingValue").textContent = fmt(remaining);
+  }
   $("periodElapsed").textContent = fmt(periodSecs);
   $("totalElapsed").textContent = fmt(totalSecs);
+  $("liveRunVal").textContent = fmt(runSecs);
+  $("liveRestVal").textContent = fmt(restSecs);
 
   const ring = $("ringProgress");
-  ring.className.baseVal = "ring-progress " + phase;
+  ring.setAttribute("class", "ring-progress " + labelPhase);
   ring.style.strokeDashoffset = circumference * (1 - progress);
 
   const pb = $("pauseBtn");
   if (state === "running") {
     pb.textContent = "Pause";
     pb.className = "ctrl-btn ctrl-pause";
-  } else {
+  } else if (state === "paused") {
     pb.textContent = "Resume";
     pb.className = "ctrl-btn " + (isRun ? "ctrl-resume-run" : "ctrl-resume-rest");
   }
+
+  const endBtn = $("endBtn");
+  const pushBtn = $("pushBtn");
+  const runActive = (state === "running" && isRun);
+  endBtn.disabled = !runActive;
+  pushBtn.disabled = !runActive;
+  pushBtn.classList.toggle("push-active", pushing);
+  pushBtn.textContent = pushing ? "Done" : "Push";
+}
+
+function recordPeriod() {
+  intervalLog.push({
+    round: currentRound,
+    phase: phase,
+    planned: curDuration(),
+    actual: periodSecs
+  });
+}
+
+function endRunNow() {
+  if (state !== "running" || phase !== "run") return;
+  recordPeriod();
+  pushing = false;
+  beep(660, 200, 2);
+  phase = "rest";
+  periodSecs = 0;
+  render();
+}
+
+function togglePush() {
+  if (state !== "running" || phase !== "run") return;
+  if (pushing) {
+    endRunNow();
+    return;
+  }
+  pushing = true;
+  beep(440, 120, 1);
+  render();
 }
 
 function tick() {
@@ -324,13 +438,17 @@ function tick() {
 
   if (periodSecs >= curDuration()) {
     if (phase === "run") {
-      beep(660, 200, 2);
-      phase = "rest";
-      periodSecs = 0;
+      if (!pushing) {
+        recordPeriod();
+        beep(660, 200, 2);
+        phase = "rest";
+        periodSecs = 0;
+      }
     } else {
+      recordPeriod();
       if (currentRound >= totalRounds) {
         beep(1100, 120, 4);
-        stop();
+        finishSession();
         return;
       }
       beep(880, 150, 3);
@@ -342,13 +460,70 @@ function tick() {
   render();
 }
 
+function finishSession() {
+  lastSessionLog = intervalLog.slice();
+  stop();
+}
+
 function stop() {
   clearInterval(timerInterval); timerInterval = null;
+  if (intervalLog.length > 0) {
+    lastSessionLog = intervalLog.slice();
+  }
   state = "idle"; phase = "run";
   currentRound = 1; periodSecs = 0; totalSecs = 0;
+  pushing = false;
+  intervalLog = [];
   $("setup").classList.remove("hidden");
   $("active").classList.add("hidden");
   app.className = "bg-idle";
+  renderLog();
+}
+
+function renderLog() {
+  const container = $("sessionLog");
+  if (!lastSessionLog || lastSessionLog.length === 0) {
+    container.classList.add("hidden");
+    container.innerHTML = "";
+    return;
+  }
+  container.classList.remove("hidden");
+
+  const byRound = {};
+  lastSessionLog.forEach(e => {
+    if (!byRound[e.round]) byRound[e.round] = {};
+    byRound[e.round][e.phase] = e;
+  });
+
+  let totalRun = 0;
+  let html = '<div class="log-title">LAST SESSION</div>';
+  html += '<div class="log-head"><span>RND</span><span>RUN</span><span>REST</span></div>';
+  html += '<div class="log-scroll">';
+  Object.keys(byRound).sort((a, b) => Number(a) - Number(b)).forEach(r => {
+    const run = byRound[r].run;
+    const rest = byRound[r].rest;
+    html += '<div class="log-row">';
+    html += '<span class="log-round">' + r + '</span>';
+    if (run) {
+      totalRun += run.actual;
+      const diff = run.actual - run.planned;
+      let extra = "";
+      if (diff > 0) extra = ' <span class="log-over">+' + fmt(diff) + '</span>';
+      else if (diff < 0) extra = ' <span class="log-under">-' + fmt(-diff) + '</span>';
+      html += '<span class="log-run">' + fmt(run.actual) + extra + '</span>';
+    } else {
+      html += '<span class="log-run">—</span>';
+    }
+    html += '<span class="log-rest">' + (rest ? fmt(rest.actual) : '—') + '</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  html += '<div class="log-row" style="border-top:1px solid #222;margin-top:4px;padding-top:6px;">';
+  html += '<span class="log-round">Σ</span>';
+  html += '<span class="log-run">' + fmt(totalRun) + '</span>';
+  html += '<span class="log-rest"></span>';
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 $("roundMinus").onclick = () => { totalRounds = Math.max(1, totalRounds - 1); $("roundsValue").textContent = totalRounds; };
@@ -360,9 +535,12 @@ $("startBtn").onclick = () => {
   runDuration = runSecs; restDuration = restSecs;
   phase = "run"; currentRound = 1; periodSecs = 0; totalSecs = 0;
   state = "running";
+  pushing = false;
+  intervalLog = [];
 
   beep(880, 150, 2);
 
+  $("sessionLog").classList.add("hidden");
   $("setup").classList.add("hidden");
   $("active").classList.remove("hidden");
   render();
@@ -383,6 +561,8 @@ $("pauseBtn").onclick = () => {
 };
 
 $("stopBtn").onclick = stop;
+$("endBtn").onclick = endRunNow;
+$("pushBtn").onclick = togglePush;
 </script>
 
 </body>
