@@ -104,16 +104,16 @@
     display: flex; flex-direction: column; align-items: center; gap: 10px;
   }
 
-  .top-row { width: 100%; display: flex; justify-content: space-between; align-items: baseline; }
+  .timer-area { position: relative; width: 100%; display: flex; justify-content: center; flex-shrink: 0; }
   .phase-label {
-    font-size: 26px; font-weight: 800; letter-spacing: 8px;
-    text-transform: uppercase; transition: color 0.4s;
+    font-size: min(5vw, 2.6dvh, 22px); font-weight: 800; letter-spacing: 6px; margin-right: -6px;
+    text-transform: uppercase; transition: color 0.4s; margin-bottom: 4px;
   }
   .phase-label.run { color: #ff4444; }
   .phase-label.rest { color: #44cc66; }
   .phase-label.push { color: #ff66cc; }
 
-  .round-info { font-family: 'Space Mono', monospace; font-size: 16px; color: #888; letter-spacing: 2px; }
+  .round-info { font-family: 'Space Mono', monospace; font-size: 13px; color: #888; letter-spacing: 2px; margin-top: 8px; white-space: nowrap; }
 
   .ring-container { position: relative; width: min(78vw, 34dvh, 400px); aspect-ratio: 1; flex-shrink: 0; }
   .ring-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
@@ -200,7 +200,7 @@
 <body>
 
 <div id="app" class="bg-idle">
-  <div class="header">Interval Timer</div>
+  <div id="header" class="header">Interval Timer</div>
 
   <!-- SETUP -->
   <div id="setup" class="setup">
@@ -245,29 +245,28 @@
 
   <!-- ACTIVE -->
   <div id="active" class="active hidden">
-    <div class="top-row">
-      <div id="phaseLabel" class="phase-label run">RUN</div>
-      <div id="roundInfo" class="round-info">ROUND 1 / 6</div>
-    </div>
-
-    <div class="ring-container">
-      <svg class="ring-svg" viewBox="0 0 280 280">
-        <circle class="ring-bg" cx="140" cy="140" r="130"/>
-        <circle id="ringProgress" class="ring-progress run" cx="140" cy="140" r="130"
-          stroke-dasharray="816.81" stroke-dashoffset="816.81"/>
-      </svg>
-      <div class="center-time">
-        <div id="remainingValue" class="remaining-value">2:50</div>
-        <div class="remaining-label">REMAINING</div>
-        <div class="center-stats">
-          <div>
-            <div id="periodElapsed" class="stat-value">0:00</div>
-            <div class="stat-label">PERIOD</div>
+    <div class="timer-area">
+      <div class="ring-container">
+        <svg class="ring-svg" viewBox="0 0 280 280">
+          <circle class="ring-bg" cx="140" cy="140" r="130"/>
+          <circle id="ringProgress" class="ring-progress run" cx="140" cy="140" r="130"
+            stroke-dasharray="816.81" stroke-dashoffset="816.81"/>
+        </svg>
+        <div class="center-time">
+          <div id="phaseLabel" class="phase-label run">RUN</div>
+          <div id="remainingValue" class="remaining-value">2:50</div>
+          <div class="remaining-label">REMAINING</div>
+          <div class="center-stats">
+            <div>
+              <div id="periodElapsed" class="stat-value">0:00</div>
+              <div class="stat-label">PERIOD</div>
+            </div>
+            <div>
+              <div id="totalElapsed" class="stat-value">0:00</div>
+              <div class="stat-label">TOTAL</div>
+            </div>
           </div>
-          <div>
-            <div id="totalElapsed" class="stat-value">0:00</div>
-            <div class="stat-label">TOTAL</div>
-          </div>
+          <div id="roundInfo" class="round-info">ROUND 1 / 6</div>
         </div>
       </div>
     </div>
@@ -519,6 +518,7 @@ function stop() {
   intervalLog = [];
   $("setup").classList.remove("hidden");
   $("active").classList.add("hidden");
+  $("header").classList.remove("hidden");
   app.className = "bg-idle";
   renderLog();
 }
@@ -610,6 +610,7 @@ $("startBtn").onclick = () => {
   $("sessionLog").classList.add("hidden");
   $("setup").classList.add("hidden");
   $("active").classList.remove("hidden");
+  $("header").classList.add("hidden");
   render();
 
   clearInterval(timerInterval);
